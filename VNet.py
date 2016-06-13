@@ -165,7 +165,7 @@ class VNet(object):
 
     def test(self):
         self.dataManagerTest = DM.DataManager(self.params['ModelParams']['dirTest'], self.params['ModelParams']['dirResult'], self.params['DataManagerParams'])
-        #self.dataManagerTest.loadTestData()
+        self.dataManagerTest.loadTestData()
 
         net = caffe.Net(self.params['ModelParams']['prototxtTest'],
                         os.path.join(self.params['ModelParams']['dirSnapshots'],"_iter_" + str(self.params['ModelParams']['snapshot']) + ".caffemodel"),
@@ -194,5 +194,5 @@ class VNet(object):
 
             results[key] = np.squeeze(labelmap)
 
-            #self.dataManagerTest.writeResultsFromNumpyLabel(np.squeeze(labelmap),key)
+            self.dataManagerTest.writeResultsFromNumpyLabel(np.squeeze(labelmap),key)
 
