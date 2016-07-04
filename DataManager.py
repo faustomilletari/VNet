@@ -76,8 +76,7 @@ class DataManager(object):
         dat = self.getNumpyData(self.sitkGT,sitk.sitkLinear)
 
         for key in dat:
-            dat[key] = (dat[key]>0.5).astype(dtype=np.float32)
-        import ipdb; ipdb.set_trace()
+            dat[key] = (dat[key]>1.5).astype(dtype=np.float32)
         return dat
 
 
