@@ -52,8 +52,8 @@ class VNet(object):
                                                self.params['ModelParams']['sigma'])
 
             weightData = np.zeros_like(defLab,dtype=float)
-            weightData[defLab == 1] = np.prod(defLab.shape) / np.sum((defLab==1).astype(dtype=np.float32))
-            weightData[defLab == 0] = np.prod(defLab.shape) / np.sum((defLab == 0).astype(dtype=np.float32))
+            for label in np.unique(defLab):
+                weightData[defLab == label] = np.prod(defLab.shape) / np.sum((defLab==label).astype(dtype=np.float32))
 
             dataQueue.put(tuple((defImg,defLab, weightData)))
 
