@@ -21,6 +21,8 @@ class DataManager(object):
         self.resultsDir=resultsDir
 
     def createImageFileList(self):
+        import ipdb
+        ipdb.set_trace()
         self.fileList = [f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'segmentation' not in f and 'raw' not in f]
         print 'FILE LIST: ' + str(self.fileList)
 
