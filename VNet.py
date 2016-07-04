@@ -138,7 +138,7 @@ class VNet(object):
         plt.ion()
 
         numpyImages = self.dataManagerTrain.getNumpyImages()
-        numpyGT = self.dataManagerTrain.getNumpyGT()
+        numpyGT = self.dataManagerTrain.getNumpyGT
 
         #numpyImages['Case00.mhd']
         #numpy images is a dictionary that you index in this way (with filenames)

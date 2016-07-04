@@ -71,14 +71,16 @@ class DataManager(object):
         return dat
 
 
+
     def getNumpyGT(self):
         dat = self.getNumpyData(self.sitkGT,sitk.sitkLinear)
 
         for key in dat:
             dat[key] = (dat[key]>0.5).astype(dtype=np.float32)
         #Relabel Labels
-        dat[dat==1]=0
-        dat[dat==2]=1
+        try:
+            dat[dat==1]=0
+            dat[dat==2]=1
         return dat
 
 
