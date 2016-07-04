@@ -1131,7 +1131,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 3
+    num_output: 2
     kernel_size: 5
     stride: 1
     pad: 2
@@ -1167,7 +1167,7 @@ layer {
     decay_mult: 0.0
   }
   convolution_param {
-    num_output: 3
+    num_output: 2
     kernel_size: 1
     stride: 1
     weight_filler {
@@ -1204,7 +1204,7 @@ layer {
     reshape_param {
       shape {
         dim: 0  # copy the dimension from below
-        dim: 3
+        dim: 2
         dim: 1048576
       }
     }

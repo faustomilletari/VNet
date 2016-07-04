@@ -76,7 +76,9 @@ class DataManager(object):
 
         for key in dat:
             dat[key] = (dat[key]>0.5).astype(dtype=np.float32)
-
+        #Relabel Labels
+        dat[dat==1]=0
+        dat[dat==2]=1
         return dat
 
 
