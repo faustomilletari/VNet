@@ -7,7 +7,7 @@ import DataManager as DM
 import utilities
 from os.path import splitext
 from multiprocessing import Process, Queue
-from bashplotlib.histogram import plot_hist
+import gnuplotlib as gp
 
 class VNet(object):
     params=None
@@ -89,7 +89,7 @@ class VNet(object):
             solver.step(1)  # this does the training
             train_loss[it] = solver.net.blobs['loss'].data
             print "Train Loss"
-            plot_hist(train_loss)
+            gp.plot(range(nr_iter),train_loss)
 
 
 
