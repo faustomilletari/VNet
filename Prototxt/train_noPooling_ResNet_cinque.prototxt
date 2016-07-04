@@ -1204,7 +1204,7 @@ layer {
     reshape_param {
       shape {
         dim: 0  # copy the dimension from below
-        dim: 2
+        dim: 3
         dim: 1048576
       }
     }
