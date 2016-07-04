@@ -38,7 +38,7 @@ class DiceLoss(caffe.Layer):
 
         self.gt = (self.gt > 0.5).astype(dtype=np.float32)
         self.result = self.result.astype(dtype=np.float32)
-
+        import ipdb; ipdb.set_trace()
         for i in range(0,bottom[0].data.shape[0]):
             # compute dice
             CurrResult = (self.result[i,:]).astype(dtype=np.float32)
