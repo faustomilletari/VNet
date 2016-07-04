@@ -32,13 +32,9 @@ params['DataManagerParams']['VolSize'] = np.asarray([128,128,64],dtype=int)
 params['DataManagerParams']['normDir'] = False #if rotates the volume according to its transformation in the mhd file. Not reccommended.
 
 model=VN.VNet(params)
-import ipdb
-ipdb.set_trace()
 train = [i for i, j in enumerate(sys.argv) if j == '-train']
 if len(train)>0:
-    import ipdb
 
-    ipdb.set_trace()
     model.train()
 
 test = [i for i, j in enumerate(sys.argv) if j == '-test']
