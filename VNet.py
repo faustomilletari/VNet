@@ -24,6 +24,7 @@ class VNet(object):
         batchsize = self.params['ModelParams']['batchsize']
 
         keysIMG = numpyImages.keys()
+        keysGT = numpyGT.keys()
 
         nr_iter_dataAug = nr_iter*batchsize
         np.random.seed()
@@ -32,8 +33,9 @@ class VNet(object):
 
         for whichData,whichDataForMatching in zip(whichDataList,whichDataForMatchingList):
             filename, ext = splitext(keysIMG[whichData])
+            gtname, ext = splitext(keysGT[whichData])
 
-            currGtKey = filename + '_segmentation' + ext
+            currGtKey = gtname  + ext
             currImgKey = filename + ext
 
             # data agugumentation through hist matching across different examples...
