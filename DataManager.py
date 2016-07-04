@@ -81,6 +81,8 @@ class DataManager(object):
         try:
             dat[dat==1]=0
             dat[dat==2]=1
+        except:
+            pass
         return dat
 
 
