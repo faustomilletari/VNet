@@ -87,14 +87,8 @@ class VNet(object):
 
             solver.step(1)  # this does the training
             train_loss[it] = solver.net.blobs['loss'].data
+            print "Train Loss" + str(train_loss)
 
-            if (np.mod(it, 10) == 0):
-                plt.clf()
-                plt.plot(range(0, it), train_loss[0:it])
-                plt.pause(0.00000001)
-
-
-            matplotlib.pyplot.show()
 
 
     def train(self):
