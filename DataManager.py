@@ -21,23 +21,17 @@ class DataManager(object):
         self.resultsDir=resultsDir
 
     def createImageFileList(self):
-        import ipdb
-        ipdb.set_trace()
         self.fileList = [f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'image' in f]
         print 'FILE LIST: ' + str(self.fileList)
 
 
     def createGTFileList(self):
-        import ipdb
-        ipdb.set_trace()
         self.gtList=list()
         self.gtList=[f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'label' in f]
         print 'GT LIST: ' + str(self.gtList)
 
 
     def loadImages(self):
-        import ipdb
-        ipdb.set_trace()
         self.sitkImages=dict()
         rescalFilt=sitk.RescaleIntensityImageFilter()
         rescalFilt.SetOutputMaximum(1)
@@ -46,8 +40,6 @@ class DataManager(object):
         stats = sitk.StatisticsImageFilter()
         m = 0.
         for f in self.fileList:
-            import ipdb
-            ipdb.set_trace()
             self.sitkImages[f]=rescalFilt.Execute(sitk.Cast(sitk.ReadImage(join(self.srcFolder, f)),sitk.sitkFloat32))
             stats.Execute(self.sitkImages[f])
             m += stats.GetMean()
