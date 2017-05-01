@@ -7,6 +7,7 @@ import DataManager as DM
 import utilities
 from os.path import splitext
 from multiprocessing import Process, Queue
+import gnuplotlib as gp
 
 class VNet(object):
     params=None
@@ -24,6 +25,7 @@ class VNet(object):
         batchsize = self.params['ModelParams']['batchsize']
 
         keysIMG = numpyImages.keys()
+        keysGT = numpyGT.keys()
 
         nr_iter_dataAug = nr_iter*batchsize
         np.random.seed()
@@ -32,8 +34,9 @@ class VNet(object):
 
         for whichData,whichDataForMatching in zip(whichDataList,whichDataForMatchingList):
             filename, ext = splitext(keysIMG[whichData])
+            gtname, ext = splitext(keysGT[whichData])
 
-            currGtKey = filename + '_segmentation' + ext
+            currGtKey = gtname  + ext
             currImgKey = filename + ext
 
             # data agugumentation through hist matching across different examples...
@@ -50,8 +53,8 @@ class VNet(object):
                                                self.params['ModelParams']['sigma'])
 
             weightData = np.zeros_like(defLab,dtype=float)
-            weightData[defLab == 1] = np.prod(defLab.shape) / np.sum((defLab==1).astype(dtype=np.float32))
-            weightData[defLab == 0] = np.prod(defLab.shape) / np.sum((defLab == 0).astype(dtype=np.float32))
+            for label in np.unique(defLab):
+                weightData[defLab == label] = np.prod(defLab.shape) / np.sum((defLab==label).astype(dtype=np.float32))
 
             dataQueue.put(tuple((defImg,defLab, weightData)))
 
@@ -85,14 +88,10 @@ class VNet(object):
 
             solver.step(1)  # this does the training
             train_loss[it] = solver.net.blobs['loss'].data
-
-            if (np.mod(it, 10) == 0):
-                plt.clf()
-                plt.plot(range(0, it), train_loss[0:it])
-                plt.pause(0.00000001)
+            print "Train Loss"
+            gp.plot(train_loss,terminal='dumb')
 
 
-            matplotlib.pyplot.show()
 
 
     def train(self):
@@ -161,6 +160,7 @@ class VNet(object):
             dataPreparation[proc].start()
 
         self.trainThread(dataQueue, solver)
+
 
 
     def test(self):

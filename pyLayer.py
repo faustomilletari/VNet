@@ -48,7 +48,7 @@ class DiceLoss(caffe.Layer):
             self.intersection[i]=(np.sum(CurrResult * CurrGT))
 
             dice[i] = 2 * self.intersection[i] / (self.union[i]+0.00001)
-            print dice[i]
+            print "Dice Score: " + str(dice[i])
 
         top[0].data[0]=np.sum(dice)
 

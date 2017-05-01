@@ -21,15 +21,14 @@ class DataManager(object):
         self.resultsDir=resultsDir
 
     def createImageFileList(self):
-        self.fileList = [f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'segmentation' not in f and 'raw' not in f]
+        self.fileList = [f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'image' in f]
         print 'FILE LIST: ' + str(self.fileList)
 
 
     def createGTFileList(self):
         self.gtList=list()
-        for f in self.fileList:
-            filename, ext = splitext(f)
-            self.gtList.append(join(filename + '_segmentation' + ext))
+        self.gtList=[f for f in listdir(self.srcFolder) if isfile(join(self.srcFolder, f)) and 'label' in f]
+        print 'GT LIST: ' + str(self.gtList)
 
 
     def loadImages(self):
@@ -72,12 +71,12 @@ class DataManager(object):
         return dat
 
 
+
     def getNumpyGT(self):
         dat = self.getNumpyData(self.sitkGT,sitk.sitkLinear)
 
         for key in dat:
-            dat[key] = (dat[key]>0.5).astype(dtype=np.float32)
-
+            dat[key] = (dat[key]==0.5).astype(dtype=np.float32)
         return dat
 
 
